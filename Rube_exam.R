@@ -83,7 +83,7 @@ rube(mastery.learning.model, mastery.data, mastery.init)
 
 
 
-debug(sourceFunctionFind)
+# debug(sourceFunctionFind)
 sourceFunctionFind("makeData")
 sourceFunctionFind("getArgs", fetch.type = "Function")
 sourceFunctionFind("rube")
@@ -101,11 +101,15 @@ sourceFunctionFind("extractSyntax")
 mastery.data <- list(x=4) # very little data!!
 mastery.learning.model <- "model {
   r <- 3
-  x ~ dweiner(p,r)
+  x ~ dweiner(a,b,c,d)
   p <- sqrt(2*u + 0.25) - 0.5
   u ~ dunif(0,1)
 }"
 mastery.init <- function() {
   return(list(u=runif(1)))
 }
-rube(mastery.learning.model, mastery.data, mastery.init)
+rube(mastery.learning.model, mastery.data, mastery.init, custom.dist = "test.custDist.txt")
+
+
+##########################################################
+# Use RWiener package for dwiener distribution test
