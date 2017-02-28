@@ -8,7 +8,8 @@
 # $startItems [1] "j"
 # $endItems   [1] "r"     "m"     "pow@@" "exp@"
 #
-extractSyntax <- function(text, engine=c("WinBUGS","jags")) {
+extractSyntax <- function(text, engine=c("WinBUGS","jags"), wd, 
+                          custom.dist) {
   engine <- match.arg(engine)
   if (engine=="WinBUGS") {
     validDists <- c("dbern@", "dbeta@@", "dbin@@","dnegbin@@","dcat@","dmulti@@","dchisq@",
@@ -75,6 +76,17 @@ extractSyntax <- function(text, engine=c("WinBUGS","jags")) {
                         "pt@@", "qt@@", "pweib@@@", "qweib@@@")
                         # "for" dealt with specially
     ## NEED TO HANDLE a %*% b matrix multiplication and logical operators!!!!!!!!!!!
+  }
+  
+  if (!is.null(custom.dist)){
+    usrInput = customDistParser(wd, custom.dist)
+    if (length(usrInput$valid.dist) > 0) {
+      validDists = c(validDists, usrInput$valid.dist)
+      distCensDefault = rbind(distCensDefault, usrInput$censor)
+    }
+    if (length(usrInput$valid.fxn) > 0) {
+      validFunctions = c(validFunctions, usrInput$valid.fxn)
+    }
   }
 
   # A function to check function calls (returns variables used and error messages

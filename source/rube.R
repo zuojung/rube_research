@@ -56,7 +56,8 @@ rube <- function(model, data=NULL, inits=NULL, parameters.to.save=NULL,
                                          Sys.getenv("BUGSWD")), 
                  bugs.seed=round(runif(1,1,2^31)), over.relax=FALSE,
                  dataParams=list(), initsExtra=NULL, warnUseless=FALSE,
-                 modelFile="tempModel.txt", ignore=NULL) {
+                 modelFile="tempModel.txt", ignore=NULL,
+                 custom.dist = NULL) {
 
   if (!mode(model)=="character") stop("model must be a file name or model string")
   if (bin>(n.iter-n.burnin)/n.thin) stop("'bin' is too large and would increase total iterations")
@@ -189,7 +190,8 @@ rube <- function(model, data=NULL, inits=NULL, parameters.to.save=NULL,
   if (is.null(parameters.to.save) || modelCheck=="always")
     check <- bugsCheck(model, data=data[names(data)!="drop"], inits=thisInit,
                        cullData=cullData, cullInits=cullInits, 
-                       engine=ifelse(program=="jags","jags","WinBUGS"))
+                       engine=ifelse(program=="jags","jags","WinBUGS"),
+                       wd = wd, custom.dist = custom.dist)
 
   ## By design, leaving out parameters.to.save gives model checking only, 
   ## without a WinBUGS/R2jags run.

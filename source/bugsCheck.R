@@ -37,7 +37,8 @@
 #
 bugsCheck <- function(model, data=NULL, inits=NULL, 
                       cullData=FALSE, cullInits=FALSE,
-                      categorizeOnly=FALSE, engine=c("WinBUGS","jags")) {
+                      categorizeOnly=FALSE, engine=c("WinBUGS","jags"),
+                      wd = wd, custom.dist) {
 
   engine <- match.arg(engine)
   # Brief check of valid input
@@ -116,7 +117,8 @@ bugsCheck <- function(model, data=NULL, inits=NULL,
     bcObject$problems <- c(bcObject$problems, paste("Equal signs not allowed in WinBugs/jags; line(s) ",
                            paste(Sel, collapse=", "), "in $model"))
   }
-  syntax <- sapply(model, extractSyntax, engine=engine)
+  syntax <- sapply(model, extractSyntax, engine=engine, 
+                   wd = wd, custom.dist = custom.dist)
   ## Matching brace to initial "model {" statement looks like an "endfor".
   if (!syntax[[length(syntax)]]$sType=="endfor") {
     bcObject$problems <- c(bcObject$problems, "Brace mismatch in $model.")
