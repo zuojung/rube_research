@@ -11,7 +11,6 @@
 extractSyntax <- function(text, engine=c("WinBUGS","jags"), wd, 
                           custom.dist) {
   engine <- match.arg(engine)
-  browser()
   if (engine=="WinBUGS") {
     validDists <- c("dbern@", "dbeta@@", "dbin@@","dnegbin@@","dcat@","dmulti@@","dchisq@",
                     "ddexp@@","dlogis@@","dlnorm@@","ddirch@","dexp@","dgamma@@",

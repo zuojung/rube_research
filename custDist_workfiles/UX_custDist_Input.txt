@@ -1,0 +1,6 @@
+Distribution: dwiener, dwiener2
+Distribution Parameters: 4, 3
+Censor defaults: NA,NA;-Inf,
+
+Function: adaBoost, randomForest
+Function Parameters: 2,4

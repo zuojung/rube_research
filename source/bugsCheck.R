@@ -41,7 +41,6 @@ bugsCheck <- function(model, data=NULL, inits=NULL,
                       wd = wd, custom.dist) {
 
   engine <- match.arg(engine)
-  browser()
   # Brief check of valid input
   if (!is.character(model) || length(model)<=1)
     stop("model argument must be a model in a string vector")

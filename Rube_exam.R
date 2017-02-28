@@ -101,7 +101,7 @@ sourceFunctionFind("extractSyntax")
 mastery.data <- list(x=4) # very little data!!
 mastery.learning.model <- "model {
   r <- 3
-  x ~ dweiner(a,b,c,d)
+  x ~ dwiener(a,b,c,d)
   p <- sqrt(2*u + 0.25) - 0.5
   u ~ dunif(0,1)
 }"
